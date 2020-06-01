@@ -15,7 +15,6 @@ vector <int> partition(int low, int high, int a[]) {
     int i = low + 1;
     int m1 = low;
     int m2 = low;
-    // cout << "pivot: " << pivot <<endl;
     while(i <= high) {
         if(a[i] < pivot) {
             m1++;
@@ -36,13 +35,8 @@ vector <int> partition(int low, int high, int a[]) {
 void quicksort(int low,int high,int a[]) {
     if( low < high) {
         int k = low + rand() % (high - low + 1);
-        // cout << endl << "k: " << k << endl ;
         swap(a[low], a[k]);
         vector <int> m = partition(low, high, a);
-        // cout << "p: " << p << endl;
-        // for(int i = 0; i <= high; i++) {
-        //     cout << a[i] << " ";
-        // }
         quicksort(low, m[0] - 1, a);
         quicksort(m[1] + 1, high, a);
     }
