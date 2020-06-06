@@ -18,7 +18,7 @@ int count_winnings(vector <pair<int, int>> segments, int l, int h, int key) {
             return count;
         }
         
-        if(key < segments[mid].second && key < segments[mid].second)
+        if(key < segments[mid].first || key < segments[mid].second)
             count += count_winnings(segments, l, mid-1, key);
         else
             count += count_winnings(segments,mid+1 , h, key);
