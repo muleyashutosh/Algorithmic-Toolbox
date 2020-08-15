@@ -1,62 +1,58 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
 using namespace std;
 
-int rsearch(vector <int> end, int l, int h, int key) {
-    int count = 0;
-    if(l <= h) {
-        int mid = l + (h - l) / 2;
-        if(end[mid] < key) {
-            
-            if(l == h)
-                return 1;
-            count = (mid - l) + 1;
-            count += rsearch(end, mid + 1, h, key);
-        }
-        else {
-            count += rsearch(end, l, mid - 1, key);
-        }
+
+vector <int> count_lottery(vector <pair<int,char>> comb, vector <int> points) {
+    unordered_map<int,int> point_counts;
+    
+    for(int x: points) {
+        point_counts[x] = 0;
     }
-    return count;
-}
-
-
-int lsearch(vector <int> start, int l, int h, int key) {
-    int count = 0;
-    if(l <= h) {
-        int mid = l + (h - l) / 2;
-        if(start[mid] > key) {
-            if(l == h)
-                return 1;
-            count = (h - mid) + 1;
-            count += lsearch(start, l, mid-1, key);
+    int count_l = 0;
+    for(int i = 0 ; i < comb.size(); i++) {
+        if(comb[i].second == 'l')
+            count_l++;
+        else if (comb[i].second == 'p') {
+            if(point_counts[comb[i].first] == 0 )
+                point_counts[comb[i].first] += count_l;
         }
-        else {
-            count += lsearch(start, mid+1, h, key);
-        }   
+        else if (comb[i].second == 'r')
+            count_l--;
+        
+    }   
+    vector <int> cnt(points.size());
+    //cout << "points_size" << points.size() << endl;
+    for(int i = 0; i < cnt.size(); i++) {
+       cnt[i] = point_counts[points[i]];
     }
-    return count;
+    return cnt;
 }
-
 
 
 int main() {
     int s, p;
     cin >> s >> p;
-    vector <int> start(s), end(s);
+    vector <pair<int,char>> comb;
     vector <int> points(p);
     for(int i = 0; i < s; i++) {
-        cin >> start[i] >> end[i];
+        int x,y;
+        cin >> x >> y;
+        comb.push_back(make_pair(x,'l'));
+        comb.push_back(make_pair(y,'r'));
     }
-    sort(start.begin(),start.end());
-    sort(end.begin(), end.end());
 
-    for(int i = 0; i < p; i++) {
+    for(int i = 0 ; i < p; i++) {
         cin >> points[i];
-        int lc = lsearch(start, 0, s-1, points[i]);
-        int rc = rsearch(end, 0, s-1, points[i]);
-        cout << s - lc - rc << " ";
+        comb.push_back(make_pair(points[i],'p'));
     }
-    return 0;
+
+    sort(comb.begin(), comb.end());
+
+    vector <int> count = count_lottery(comb,points);
+    for(int x : count) 
+        cout << x << " ";
+
 }
