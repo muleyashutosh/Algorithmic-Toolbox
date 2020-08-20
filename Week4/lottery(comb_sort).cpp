@@ -16,7 +16,7 @@ vector <int> count_lottery(vector <pair<int,char>> comb, vector <int> points) {
         if(comb[i].second == 'l')
             count_l++;
         else if (comb[i].second == 'p') {
-            if(point_counts[comb[i].first] == 0 )
+            if(point_counts[comb[i].first] == 0)
                 point_counts[comb[i].first] += count_l;
         }
         else if (comb[i].second == 'r')
