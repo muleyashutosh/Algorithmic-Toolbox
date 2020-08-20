@@ -41,6 +41,8 @@ int end_bin(vector <int> arr, int n, int key) {
 
 
 int main() { 
+    ios_base :: sync_with_stdio(false);
+    cin.tie(NULL); 
     int s, p;
     cin >> s >> p;
     vector <int> start(s);
