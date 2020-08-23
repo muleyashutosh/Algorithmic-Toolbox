@@ -33,6 +33,9 @@ vector <int> count_lottery(vector <pair<int,char>> comb, vector <int> points) {
 
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int s, p;
     cin >> s >> p;
     vector <pair<int,char>> comb;
