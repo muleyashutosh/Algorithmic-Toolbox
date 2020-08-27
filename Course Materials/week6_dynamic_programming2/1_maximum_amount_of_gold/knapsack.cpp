@@ -1,11 +1,16 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+using namespace std;
 
-using std::vector;
+bool comp(int a, int b) {
+    return a > b;
+}
 
-int optimal_weight(int W, const vector<int> &w) {
+int optimal_weight(int W, vector<int> &w) {
   //write your code here
   int current_weight = 0;
+  sort(w.begin(),w.end(),comp);
   for (size_t i = 0; i < w.size(); ++i) {
     if (current_weight + w[i] <= W) {
       current_weight += w[i];
@@ -16,10 +21,10 @@ int optimal_weight(int W, const vector<int> &w) {
 
 int main() {
   int n, W;
-  std::cin >> W >> n;
+  cin >> W >> n;
   vector<int> w(n);
   for (int i = 0; i < n; i++) {
-    std::cin >> w[i];
+    cin >> w[i];
   }
-  std::cout << optimal_weight(W, w) << '\n';
+  cout << optimal_weight(W, w) << '\n';
 }
