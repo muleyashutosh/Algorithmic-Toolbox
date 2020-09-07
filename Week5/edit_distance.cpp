@@ -27,5 +27,8 @@ int main()  {
             dp[i][j] = min({x, y, z});
         }
     }
+    
     cout << dp[n][m];
 }
+
+
